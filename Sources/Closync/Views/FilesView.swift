@@ -1,3 +1,4 @@
+import AVKit
 import UniformTypeIdentifiers
 import SwiftUI
 
@@ -40,10 +41,13 @@ struct FilesView: View {
                                 .environment(appModel)
                         } else {
                             ForEach(appModel.selectedItems) { item in
-                                FileRow(item: item) {
+                                FileRow(item: item, isSelected: appModel.selectedLocalItemID == item.id) {
                                     appModel.removeItem(item)
                                 }
                                 .environment(appModel)
+                                .onTapGesture {
+                                    appModel.selectLocalItem(item)
+                                }
                             }
                         }
                     }
@@ -83,13 +87,12 @@ struct FilesView: View {
                 .font(RetroTypography.body(12))
                 .foregroundStyle(appModel.palette.secondaryText)
 
-                RetroButton(title: "GITHUB BACKUP", isActive: true) {
-                    appModel.showingGitHubBackupSheet = true
-                }
+                MediaViewerPanel()
+                    .environment(appModel)
 
                 Spacer()
             }
-            .frame(width: 300, alignment: .topLeading)
+            .frame(width: 360, alignment: .topLeading)
             .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
         }
     }
@@ -118,6 +121,85 @@ struct FilesView: View {
 
         if !urls.isEmpty {
             appModel.addItems(urls: urls)
+        }
+    }
+}
+
+private struct MediaViewerPanel: View {
+    @Environment(AppModel.self) private var appModel
+    @State private var player: AVPlayer?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("MEDIA VIEWER")
+                .font(RetroTypography.body(12))
+
+            if let preview = appModel.mediaPreview {
+                Text(preview.title.uppercased())
+                    .font(RetroTypography.body(11))
+                Text(preview.providerName.uppercased())
+                    .font(RetroTypography.body(10))
+                    .foregroundStyle(appModel.palette.secondaryText)
+
+                Group {
+                    switch preview.kind {
+                    case .image:
+                        RemoteImageView(url: preview.sourceURL)
+                    case .video:
+                        VideoPlayer(player: player)
+                            .frame(height: 180)
+                            .onAppear {
+                                player = AVPlayer(url: preview.sourceURL)
+                            }
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .clipShape(RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 10))
+
+                if preview.kind == .video {
+                    HStack(spacing: 10) {
+                        RetroButton(title: "PLAY", isActive: true) {
+                            player?.play()
+                        }
+                        RetroButton(title: "PAUSE", isActive: false) {
+                            player?.pause()
+                        }
+                    }
+                }
+            } else {
+                Text("Select a local image/video or a previewable remote media file from Connections.")
+                    .font(RetroTypography.body(11))
+                    .foregroundStyle(appModel.palette.secondaryText)
+            }
+        }
+    }
+}
+
+private struct RemoteImageView: View {
+    let url: URL
+
+    var body: some View {
+        if url.isFileURL, let image = NSImage(contentsOf: url) {
+            Image(nsImage: image)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 180)
+        } else {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case let .success(image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 180)
+                case .failure:
+                    Text("Preview unavailable")
+                        .frame(maxWidth: .infinity, minHeight: 180)
+                default:
+                    ProgressView()
+                        .frame(maxWidth: .infinity, minHeight: 180)
+                }
+            }
         }
     }
 }
@@ -171,6 +253,7 @@ private struct EmptySelectionView: View {
 
 private struct FileRow: View {
     let item: FileSelectionItem
+    let isSelected: Bool
     let remove: () -> Void
 
     @Environment(AppModel.self) private var appModel
@@ -200,10 +283,10 @@ private struct FileRow: View {
             .buttonStyle(.plain)
         }
         .padding(12)
-        .background(hovering ? appModel.palette.frame.opacity(0.08) : .black.opacity(0.14))
+        .background((hovering || isSelected) ? appModel.palette.frame.opacity(0.08) : .black.opacity(0.14))
         .overlay(
             RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 10)
-                .stroke(appModel.palette.frame.opacity(0.85), lineWidth: 1)
+                .stroke(appModel.palette.frame.opacity(isSelected ? 1 : 0.85), lineWidth: isSelected ? 1.4 : 1)
         )
         .onHover { hovering in
             self.hovering = hovering

@@ -21,7 +21,7 @@ struct ConnectionsView: View {
                     }
                 }
             }
-            .frame(width: 420)
+            .frame(width: 390)
             .frame(maxHeight: .infinity, alignment: .topLeading)
             .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
 
@@ -82,6 +82,7 @@ private struct ConnectionDetailPane: View {
     let connectionID: UUID
 
     @Environment(AppModel.self) private var appModel
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
         let connection = currentConnection
@@ -92,10 +93,39 @@ private struct ConnectionDetailPane: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    LabeledConnectionField(title: "Display Name", text: binding(\.displayName))
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("OAUTH SETUP")
+                            .font(RetroTypography.body(12))
+                        Text(connection.provider.oauthInstructions)
+                            .font(RetroTypography.body(11))
+                            .foregroundStyle(appModel.palette.secondaryText)
+                        Text("Recommended scopes: \(connection.provider.recommendedScopes)")
+                            .font(RetroTypography.body(10))
+                            .foregroundStyle(appModel.palette.secondaryText)
+                    }
 
                     if connection.provider.usesTokenAuthentication {
+                        LabeledConnectionField(title: "Client ID", text: binding(\.clientID))
+                        LabeledConnectionField(title: "Client Secret", text: binding(\.clientSecret), secure: true)
+                        LabeledConnectionField(title: "Redirect URI", text: binding(\.oauthRedirectURI))
                         LabeledConnectionField(title: "Access Token", text: binding(\.authToken), secure: true)
+
+                        HStack(spacing: 10) {
+                            oauthLinkButton(title: "AUTH GUIDE", url: connection.provider.oauthGuideURL)
+                            oauthLinkButton(title: "TOKEN", url: connection.provider.tokenPortalURL)
+                            oauthLinkButton(title: "PORTAL", url: connection.provider.developerConsoleURL)
+                        }
+
+                        if let authURL = OAuthService.authorizationURL(for: connection) {
+                            Button {
+                                openURL(authURL)
+                            } label: {
+                                Text("[START OAUTH]")
+                                    .font(RetroTypography.body(12))
+                                    .foregroundStyle(appModel.palette.frame)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
 
                     if connection.provider == .github {
@@ -132,6 +162,8 @@ private struct ConnectionDetailPane: View {
                                 Button {
                                     if entry.isFolder {
                                         Task { await appModel.browseSelectedConnection(path: entry.path) }
+                                    } else {
+                                        Task { await appModel.prepareRemotePreview(for: entry) }
                                     }
                                 } label: {
                                     HStack {
@@ -144,7 +176,7 @@ private struct ConnectionDetailPane: View {
                                                 .lineLimit(1)
                                         }
                                         Spacer()
-                                        Text(entry.isFolder ? "DIR" : "FILE")
+                                        Text(entry.isFolder ? "DIR" : previewBadge(for: entry))
                                             .font(RetroTypography.body(10))
                                     }
                                     .padding(10)
@@ -190,6 +222,29 @@ private struct ConnectionDetailPane: View {
             return "root"
         case .dropbox, .github:
             return ""
+        }
+    }
+
+    private func previewBadge(for entry: CloudBrowserEntry) -> String {
+        let lower = entry.name.lowercased()
+        if ["png","jpg","jpeg","gif","webp","heic"].contains(where: { lower.hasSuffix(".\($0)") }) {
+            return "IMG"
+        }
+        if ["mov","mp4","m4v","avi","mkv","webm"].contains(where: { lower.hasSuffix(".\($0)") }) {
+            return "VID"
+        }
+        return "FILE"
+    }
+
+    @ViewBuilder
+    private func oauthLinkButton(title: String, url: URL?) -> some View {
+        if let url {
+            Link(destination: url) {
+                Text("[\(title)]")
+                    .font(RetroTypography.body(11))
+                    .foregroundStyle(appModel.palette.frame)
+            }
+            .buttonStyle(.plain)
         }
     }
 }

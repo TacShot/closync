@@ -70,6 +70,25 @@ enum CloudService {
         }
     }
 
+    static func previewURL(for connection: ProviderConnection, entry: CloudBrowserEntry) async throws -> URL {
+        switch connection.provider {
+        case .local, .iCloud:
+            return URL(fileURLWithPath: entry.path)
+        case .github, .oneDrive:
+            if let string = entry.previewURLString, let url = URL(string: string) {
+                return url
+            }
+            throw AppError.message("Preview URL is unavailable for this item.")
+        case .dropbox:
+            if let string = entry.previewURLString, let url = URL(string: string) {
+                return url
+            }
+            return try await dropboxTemporaryLink(token: connection.authToken, path: entry.path)
+        case .googleDrive:
+            throw AppError.message("Google Drive preview needs a signed download step and is not yet available in the viewer.")
+        }
+    }
+
     static func createGitHubRepositoryAndBackup(connection: ProviderConnection, draft: GitHubBackupDraft, items: [FileSelectionItem]) async throws -> String {
         let token = draft.token.isEmpty ? connection.authToken : draft.token
         guard !token.isEmpty else {
@@ -151,7 +170,9 @@ enum CloudService {
                 path: $0.id,
                 isFolder: $0.mimeType == "application/vnd.google-apps.folder",
                 sizeInBytes: Int64($0.size ?? "0"),
-                modifiedDescription: $0.modifiedTime
+                modifiedDescription: $0.modifiedTime,
+                previewURLString: nil,
+                mimeType: $0.mimeType
             )
         }
     }
@@ -185,7 +206,9 @@ enum CloudService {
                 path: $0.id,
                 isFolder: $0.folder != nil,
                 sizeInBytes: $0.size,
-                modifiedDescription: $0.lastModifiedDateTime
+                modifiedDescription: $0.lastModifiedDateTime,
+                previewURLString: $0.downloadURL,
+                mimeType: nil
             )
         }
     }
@@ -218,7 +241,9 @@ enum CloudService {
                 path: $0.pathDisplay ?? "",
                 isFolder: $0.tag == "folder",
                 sizeInBytes: $0.size,
-                modifiedDescription: $0.serverModified
+                modifiedDescription: $0.serverModified,
+                previewURLString: nil,
+                mimeType: nil
             )
         }
     }
@@ -266,12 +291,12 @@ enum CloudService {
         let data = try await makeJSONRequest(url: url, token: connection.authToken, headers: ["Accept": "application/vnd.github+json"])
         if let entries = try? JSONDecoder().decode([GitHubContentEntry].self, from: data) {
             return entries.map {
-                CloudBrowserEntry(name: $0.name, path: $0.path, isFolder: $0.type == "dir", sizeInBytes: Int64($0.size), modifiedDescription: nil)
+                CloudBrowserEntry(name: $0.name, path: $0.path, isFolder: $0.type == "dir", sizeInBytes: Int64($0.size), modifiedDescription: nil, previewURLString: $0.downloadURL, mimeType: nil)
             }
         }
 
         let single = try JSONDecoder().decode(GitHubContentEntry.self, from: data)
-        return [CloudBrowserEntry(name: single.name, path: single.path, isFolder: single.type == "dir", sizeInBytes: Int64(single.size), modifiedDescription: nil)]
+        return [CloudBrowserEntry(name: single.name, path: single.path, isFolder: single.type == "dir", sizeInBytes: Int64(single.size), modifiedDescription: nil, previewURLString: single.downloadURL, mimeType: nil)]
     }
 
     private static func createGitHubRepository(token: String, name: String, description: String, isPrivate: Bool) async throws -> GitHubCreatedRepository {
@@ -328,6 +353,17 @@ enum CloudService {
         formatter.dateFormat = "yyyyMMdd-HHmm"
         return "backup/\(draft.timeframeValue)-\(draft.timeframeUnit.rawValue)-\(formatter.string(from: Date()))"
     }
+
+    private static func dropboxTemporaryLink(token: String, path: String) async throws -> URL {
+        let url = URL(string: "https://api.dropboxapi.com/2/files/get_temporary_link")!
+        let body = try JSONEncoder().encode(DropboxTemporaryLinkRequest(path: path))
+        let data = try await makeJSONRequest(url: url, method: "POST", token: token, body: body)
+        let response = try JSONDecoder().decode(DropboxTemporaryLinkResponse.self, from: data)
+        guard let result = URL(string: response.link) else {
+            throw AppError.message("Dropbox did not return a usable temporary link.")
+        }
+        return result
+    }
 }
 
 private struct GoogleDriveAboutResponse: Decodable {
@@ -375,6 +411,16 @@ private struct OneDriveChildrenResponse: Decodable {
         var size: Int64
         var lastModifiedDateTime: String?
         var folder: Folder?
+        var downloadURL: String?
+
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case size
+            case lastModifiedDateTime
+            case folder
+            case downloadURL = "@microsoft.graph.downloadUrl"
+        }
     }
     var value: [Entry]
 }
@@ -425,6 +471,15 @@ private struct GitHubContentEntry: Decodable {
     var path: String
     var type: String
     var size: Int
+    var downloadURL: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case path
+        case type
+        case size
+        case downloadURL = "download_url"
+    }
 }
 
 private struct GitHubCreateRepositoryRequest: Encodable {
@@ -473,4 +528,12 @@ private struct GitHubUploadRequest: Encodable {
 private struct DropboxListFolderRequest: Encodable {
     var path: String
     var recursive: Bool
+}
+
+private struct DropboxTemporaryLinkRequest: Encodable {
+    var path: String
+}
+
+private struct DropboxTemporaryLinkResponse: Decodable {
+    var link: String
 }

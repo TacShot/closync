@@ -26,6 +26,12 @@ final class AppModel {
     var logs: [ActivityLogEntry] = []
     var githubBackupDraft = GitHubBackupDraft()
     var showingGitHubBackupSheet = false
+    var selectedLocalItemID: UUID?
+    var selectedBrowserEntryID: UUID?
+    var mediaPreview: MediaPreviewItem?
+    var editingNodeID: UUID?
+    var newNodeDraft = FlowNodeDraft()
+    var showingNewNodeComposer = false
 
     var selectedConnection: ProviderConnection? {
         get { connections.first(where: { $0.id == selectedConnectionID }) }
@@ -49,6 +55,10 @@ final class AppModel {
 
     var recentSuccessfulActions: Int {
         logs.filter { $0.kind == .success }.count
+    }
+
+    var selectedLocalItem: FileSelectionItem? {
+        selectedItems.first(where: { $0.id == selectedLocalItemID })
     }
 
     func configureInitialState(
@@ -178,6 +188,8 @@ final class AppModel {
 
     func clearSelections() {
         selectedItems.removeAll()
+        selectedLocalItemID = nil
+        mediaPreview = nil
         currentProgress = 0
         currentOperation = "Idle"
         addLog(title: "Selection Cleared", detail: "No files or folders are selected.", kind: .info)
@@ -202,7 +214,16 @@ final class AppModel {
 
     func removeItem(_ item: FileSelectionItem) {
         selectedItems.removeAll { $0.id == item.id }
+        if selectedLocalItemID == item.id {
+            selectedLocalItemID = nil
+            mediaPreview = nil
+        }
         updateFlowMetrics()
+    }
+
+    func selectLocalItem(_ item: FileSelectionItem) {
+        selectedLocalItemID = item.id
+        prepareLocalPreview(for: item)
     }
 
     func performLocalAction(_ action: FileOperationKind) async {
@@ -310,6 +331,23 @@ final class AppModel {
         updateFlowMetrics()
     }
 
+    func prepareRemotePreview(for entry: CloudBrowserEntry) async {
+        guard let connection = selectedConnection, !entry.isFolder else { return }
+        selectedBrowserEntryID = entry.id
+        do {
+            let previewURL = try await CloudService.previewURL(for: connection, entry: entry)
+            guard let kind = mediaKind(for: entry.name, mimeType: entry.mimeType) else {
+                addLog(title: "Preview Unsupported", detail: "Preview is available only for images and videos.", kind: .warning)
+                return
+            }
+            mediaPreview = MediaPreviewItem(title: entry.name, sourceURL: previewURL, kind: kind, providerName: connection.displayName)
+            selectedTab = .files
+            addLog(title: "Preview Ready", detail: "Loaded \(entry.name) from \(connection.displayName).", kind: .success)
+        } catch {
+            addLog(title: "Preview Failed", detail: error.localizedDescription, kind: .failure)
+        }
+    }
+
     func createGitHubBackupRepository() async {
         guard !selectedItems.isEmpty else {
             addLog(title: "No Selection", detail: "Select files or folders before creating a GitHub backup.", kind: .warning)
@@ -353,5 +391,99 @@ final class AppModel {
             x: min(max(normalizedPosition.x, 0.08), 0.92),
             y: min(max(normalizedPosition.y, 0.12), 0.88)
         )
+    }
+
+    func openNodeInspector(_ nodeID: UUID) {
+        editingNodeID = nodeID
+        showingNewNodeComposer = false
+    }
+
+    func updateNode(
+        id: UUID,
+        title: String,
+        subtitle: String,
+        kind: FlowNode.NodeKind
+    ) {
+        guard let index = nodes.firstIndex(where: { $0.id == id }) else { return }
+        nodes[index].title = title
+        nodes[index].subtitle = subtitle
+        nodes[index].kind = kind
+    }
+
+    func presentNewNodeComposer() {
+        showingNewNodeComposer = true
+        editingNodeID = nil
+        newNodeDraft = FlowNodeDraft()
+        newNodeDraft.sourceNodeID = nodes.first?.id
+    }
+
+    func addNodeFromDraft() {
+        let newNode = FlowNode(
+            id: UUID(),
+            title: newNodeDraft.title.uppercased(),
+            subtitle: newNodeDraft.subtitle,
+            kind: newNodeDraft.kind,
+            position: CGPoint(x: 0.52, y: 0.58),
+            progress: 0
+        )
+        nodes.append(newNode)
+
+        if let sourceID = newNodeDraft.sourceNodeID {
+            edges.append(FlowEdge(from: sourceID, to: newNode.id, label: "LINK", traffic: 0))
+        }
+        if let targetID = newNodeDraft.targetNodeID {
+            edges.append(FlowEdge(from: newNode.id, to: targetID, label: "LINK", traffic: 0))
+        }
+
+        addLog(title: "Route Node Added", detail: "Created \(newNode.title).", kind: .success)
+        openNodeInspector(newNode.id)
+        showingNewNodeComposer = false
+    }
+
+    func presetActions(for node: FlowNode) -> [NodeActionPreset] {
+        switch node.kind {
+        case .source:
+            [
+                NodeActionPreset(title: "SOURCE SET", subtitle: selectedItems.isEmpty ? "No files selected" : "\(selectedItems.count) root items", kind: .source),
+                NodeActionPreset(title: "CLOUD SRC", subtitle: selectedConnection?.displayName ?? "Choose provider", kind: .source)
+            ]
+        case .transform:
+            [
+                NodeActionPreset(title: "ACTION CORE", subtitle: "Copy / Move / Delete / Backup", kind: .transform),
+                NodeActionPreset(title: "MEDIA VIEW", subtitle: "Preview images and video streams", kind: .transform)
+            ]
+        case .destination, .cleanup:
+            [
+                NodeActionPreset(title: "TARGET", subtitle: destinationFolderURL?.path ?? "Choose destination", kind: .destination),
+                NodeActionPreset(title: "ARCHIVE", subtitle: "Remote repository or folder", kind: .destination)
+            ]
+        }
+    }
+
+    func applyPreset(_ preset: NodeActionPreset, to nodeID: UUID) {
+        updateNode(id: nodeID, title: preset.title, subtitle: preset.subtitle, kind: preset.kind)
+        addLog(title: "Node Updated", detail: "\(preset.title) preset applied.", kind: .success)
+    }
+
+    private func prepareLocalPreview(for item: FileSelectionItem) {
+        guard !item.isDirectory, let kind = mediaKind(for: item.url.lastPathComponent, mimeType: nil) else {
+            mediaPreview = nil
+            return
+        }
+        mediaPreview = MediaPreviewItem(title: item.url.lastPathComponent, sourceURL: item.url, kind: kind, providerName: "Local")
+    }
+
+    private func mediaKind(for fileName: String, mimeType: String?) -> MediaKind? {
+        let lower = fileName.lowercased()
+        let imageExtensions = ["png", "jpg", "jpeg", "gif", "webp", "heic", "tif", "tiff", "bmp"]
+        let videoExtensions = ["mov", "mp4", "m4v", "avi", "mkv", "webm"]
+
+        if imageExtensions.contains(where: { lower.hasSuffix(".\($0)") }) || (mimeType?.hasPrefix("image/") ?? false) {
+            return .image
+        }
+        if videoExtensions.contains(where: { lower.hasSuffix(".\($0)") }) || (mimeType?.hasPrefix("video/") ?? false) {
+            return .video
+        }
+        return nil
     }
 }

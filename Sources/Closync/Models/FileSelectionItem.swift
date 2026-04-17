@@ -16,6 +16,19 @@ struct FileSelectionItem: Identifiable, Hashable, Codable {
     }
 }
 
+enum MediaKind: String, Codable {
+    case image
+    case video
+}
+
+struct MediaPreviewItem: Identifiable, Hashable {
+    let id = UUID()
+    var title: String
+    var sourceURL: URL
+    var kind: MediaKind
+    var providerName: String
+}
+
 struct ActivityLogEntry: Identifiable, Hashable, Codable {
     enum Kind: String, Codable {
         case info

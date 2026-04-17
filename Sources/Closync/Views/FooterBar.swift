@@ -15,13 +15,6 @@ struct FooterBar: View {
             Spacer()
 
             HStack(spacing: 10) {
-                RetroButton(title: appModel.progressPanelVisible ? "HUD ON" : "HUD OFF", isActive: appModel.progressPanelVisible) {
-                    withAnimation(.spring(response: 0.32, dampingFraction: 0.8)) {
-                        appModel.progressPanelVisible.toggle()
-                    }
-                }
-                .frame(width: 120)
-
                 RetroButton(title: "SELECT", isActive: false) {
                     appModel.chooseFilesAndFolders()
                 }
@@ -32,18 +25,12 @@ struct FooterBar: View {
                 }
                 .frame(width: 118)
 
-                SettingsLink {
-                    Text("[MENU]")
-                        .font(RetroTypography.body(15))
-                        .foregroundStyle(appModel.palette.frame)
-                        .padding(.vertical, 10)
-                        .frame(width: 110)
+                RetroButton(title: appModel.progressPanelVisible ? "HUD ON" : "HUD OFF", isActive: appModel.progressPanelVisible) {
+                    withAnimation(.spring(response: 0.32, dampingFraction: 0.8)) {
+                        appModel.progressPanelVisible.toggle()
+                    }
                 }
-                .buttonStyle(.plain)
-                .overlay(
-                    RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8)
-                        .stroke(appModel.palette.frame.opacity(0.9), lineWidth: 1)
-                )
+                .frame(width: 120)
             }
         }
         .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)

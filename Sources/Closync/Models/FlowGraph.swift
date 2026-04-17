@@ -24,3 +24,18 @@ struct FlowEdge: Identifiable, Hashable {
     var label: String
     var traffic: Double
 }
+
+struct FlowNodeDraft {
+    var title: String = "NEW BOX"
+    var subtitle: String = "Configure route"
+    var kind: FlowNode.NodeKind = .transform
+    var sourceNodeID: UUID?
+    var targetNodeID: UUID?
+}
+
+struct NodeActionPreset: Identifiable, Hashable {
+    let id = UUID()
+    var title: String
+    var subtitle: String
+    var kind: FlowNode.NodeKind
+}

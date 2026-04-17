@@ -13,12 +13,24 @@ struct DataflowView: View {
                 Text("ROUTE MAP")
                     .font(RetroTypography.title(17))
 
-                Text("The graph now reflects live selections, current action state, and the chosen destination or remote browser path. Drag nodes to re-layout the panel.")
+                Text("Drag nodes to re-layout edges live. Double-click a node to edit its action profile, or create a new box and wire it between existing nodes.")
                     .font(RetroTypography.body(12))
                     .foregroundStyle(appModel.palette.secondaryText)
 
-                RetroButton(title: "REFRESH", isActive: true) {
-                    appModel.refreshLocalRoots()
+                HStack(spacing: 10) {
+                    RetroButton(title: "REFRESH", isActive: true) {
+                        appModel.refreshLocalRoots()
+                    }
+                    RetroButton(title: "NEW BOX", isActive: false) {
+                        appModel.presentNewNodeComposer()
+                    }
+                }
+
+                if appModel.showingNewNodeComposer {
+                    NewNodeComposer()
+                } else if let editingID = appModel.editingNodeID,
+                          let node = appModel.nodes.first(where: { $0.id == editingID }) {
+                    NodeInspector(node: node)
                 }
 
                 VStack(alignment: .leading, spacing: 10) {
@@ -33,7 +45,7 @@ struct DataflowView: View {
 
                 Spacer()
             }
-            .frame(width: 280)
+            .frame(width: 310)
             .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
         }
     }
@@ -97,7 +109,7 @@ private struct FlowNodeView: View {
 
     @Environment(AppModel.self) private var appModel
     @State private var hovering = false
-    @State private var dragTranslation: CGSize = .zero
+    @State private var dragStartPosition: CGPoint?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -117,28 +129,172 @@ private struct FlowNodeView: View {
         )
         .shadow(color: appModel.palette.glow.opacity(hovering ? 1 : 0.45), radius: hovering ? 16 : 10)
         .scaleEffect(appModel.hoverAnimationsEnabled && hovering ? 1.03 : 1)
-        .offset(dragTranslation)
         .onHover { hovering in
             self.hovering = hovering
+        }
+        .onTapGesture(count: 2) {
+            appModel.openNodeInspector(node.id)
         }
         .gesture(
             DragGesture()
                 .onChanged { value in
-                    dragTranslation = value.translation
-                }
-                .onEnded { value in
+                    let origin = dragStartPosition ?? node.position
+                    dragStartPosition = origin
                     let newCenter = CGPoint(
-                        x: node.position.x * canvasSize.width + value.translation.width,
-                        y: node.position.y * canvasSize.height + value.translation.height
+                        x: origin.x * canvasSize.width + value.translation.width,
+                        y: origin.y * canvasSize.height + value.translation.height
                     )
                     appModel.updateNodePosition(
                         id: node.id,
                         normalizedPosition: CGPoint(x: newCenter.x / canvasSize.width, y: newCenter.y / canvasSize.height)
                     )
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.72)) {
-                        dragTranslation = .zero
-                    }
+                }
+                .onEnded { _ in
+                    dragStartPosition = nil
                 }
         )
+    }
+}
+
+private struct NodeInspector: View {
+    let node: FlowNode
+    @Environment(AppModel.self) private var appModel
+    @State private var title = ""
+    @State private var subtitle = ""
+    @State private var kind: FlowNode.NodeKind = .transform
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("NODE DIALOG")
+                .font(RetroTypography.body(12))
+
+            TextField("Title", text: $title)
+                .textFieldStyle(.plain)
+                .font(RetroTypography.body(12))
+                .padding(8)
+                .background(.black.opacity(0.16))
+                .overlay(RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8).stroke(appModel.palette.frame.opacity(0.7), lineWidth: 1))
+
+            TextField("Subtitle", text: $subtitle)
+                .textFieldStyle(.plain)
+                .font(RetroTypography.body(12))
+                .padding(8)
+                .background(.black.opacity(0.16))
+                .overlay(RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8).stroke(appModel.palette.frame.opacity(0.7), lineWidth: 1))
+
+            Picker("Kind", selection: $kind) {
+                ForEach(FlowNode.NodeKind.allCases, id: \.self) { kind in
+                    Text(kind.rawValue.uppercased()).tag(kind)
+                }
+            }
+            .pickerStyle(.menu)
+
+            HStack(spacing: 8) {
+                RetroButton(title: "SAVE", isActive: true) {
+                    appModel.updateNode(id: node.id, title: title, subtitle: subtitle, kind: kind)
+                }
+                RetroButton(title: "SOURCE SET", isActive: false) {
+                    if let preset = appModel.presetActions(for: node).first {
+                        appModel.applyPreset(preset, to: node.id)
+                    }
+                }
+            }
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("PRESETS")
+                    .font(RetroTypography.body(11))
+                    .foregroundStyle(appModel.palette.secondaryText)
+                ForEach(appModel.presetActions(for: node)) { preset in
+                    Button {
+                        appModel.applyPreset(preset, to: node.id)
+                        title = preset.title
+                        subtitle = preset.subtitle
+                        kind = preset.kind
+                    } label: {
+                        Text("[\(preset.title)]")
+                            .font(RetroTypography.body(11))
+                            .foregroundStyle(appModel.palette.frame)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+        }
+        .onAppear {
+            title = node.title
+            subtitle = node.subtitle
+            kind = node.kind
+        }
+    }
+}
+
+private struct NewNodeComposer: View {
+    @Environment(AppModel.self) private var appModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("NEW ROUTE BOX")
+                .font(RetroTypography.body(12))
+
+            TextField("Title", text: Binding(
+                get: { appModel.newNodeDraft.title },
+                set: { appModel.newNodeDraft.title = $0 }
+            ))
+            .textFieldStyle(.plain)
+            .font(RetroTypography.body(12))
+            .padding(8)
+            .background(.black.opacity(0.16))
+            .overlay(RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8).stroke(appModel.palette.frame.opacity(0.7), lineWidth: 1))
+
+            TextField("Subtitle", text: Binding(
+                get: { appModel.newNodeDraft.subtitle },
+                set: { appModel.newNodeDraft.subtitle = $0 }
+            ))
+            .textFieldStyle(.plain)
+            .font(RetroTypography.body(12))
+            .padding(8)
+            .background(.black.opacity(0.16))
+            .overlay(RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8).stroke(appModel.palette.frame.opacity(0.7), lineWidth: 1))
+
+            Picker("Role", selection: Binding(
+                get: { appModel.newNodeDraft.kind },
+                set: { appModel.newNodeDraft.kind = $0 }
+            )) {
+                ForEach(FlowNode.NodeKind.allCases, id: \.self) { kind in
+                    Text(kind.rawValue.uppercased()).tag(kind)
+                }
+            }
+            .pickerStyle(.menu)
+
+            Picker("Source", selection: Binding(
+                get: { appModel.newNodeDraft.sourceNodeID },
+                set: { appModel.newNodeDraft.sourceNodeID = $0 }
+            )) {
+                Text("NONE").tag(UUID?.none)
+                ForEach(appModel.nodes) { node in
+                    Text(node.title).tag(Optional(node.id))
+                }
+            }
+            .pickerStyle(.menu)
+
+            Picker("Target", selection: Binding(
+                get: { appModel.newNodeDraft.targetNodeID },
+                set: { appModel.newNodeDraft.targetNodeID = $0 }
+            )) {
+                Text("NONE").tag(UUID?.none)
+                ForEach(appModel.nodes) { node in
+                    Text(node.title).tag(Optional(node.id))
+                }
+            }
+            .pickerStyle(.menu)
+
+            HStack(spacing: 8) {
+                RetroButton(title: "CREATE", isActive: true) {
+                    appModel.addNodeFromDraft()
+                }
+                RetroButton(title: "CANCEL", isActive: false) {
+                    appModel.showingNewNodeComposer = false
+                }
+            }
+        }
     }
 }

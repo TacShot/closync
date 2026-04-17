@@ -86,6 +86,13 @@
     "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.swiftdeps",
     "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.dia"
   },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/OAuthService.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/OAuthService.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/OAuthService.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/OAuthService~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/OAuthService.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/OAuthService.dia"
+  },
   "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift": {
     "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppModel.d",
     "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppModel.swift.o",
@@ -106,6 +113,13 @@
     "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationsView~partial.swiftmodule",
     "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationsView.swiftdeps",
     "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationsView.dia"
+  },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/ClosyncLogoView.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncLogoView.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncLogoView.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncLogoView~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncLogoView.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncLogoView.dia"
   },
   "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/RetroButton.swift": {
     "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroButton.d",

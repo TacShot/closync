@@ -1,0 +1,9 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#07181A"/>
+  <rect x="40" y="40" width="432" height="432" stroke="#71F6F4" stroke-width="10"/>
+  <rect x="72" y="72" width="368" height="368" fill="#0B2022" stroke="#71F6F4" stroke-opacity="0.7" stroke-width="4"/>
+  <path d="M132 168L254 256L380 136" stroke="#71F6F4" stroke-width="20" stroke-linecap="square"/>
+  <path d="M132 344L254 256L380 376" stroke="#71F6F4" stroke-width="20" stroke-linecap="square"/>
+  <rect x="120" y="402" width="272" height="18" fill="#71F6F4" fill-opacity="0.35"/>
+  <text x="256" y="110" text-anchor="middle" fill="#71F6F4" font-family="monospace" font-size="34" font-weight="700">CLOSYNC</text>
+</svg>

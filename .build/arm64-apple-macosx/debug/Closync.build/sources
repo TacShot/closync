@@ -10,9 +10,11 @@
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Services/CloudService.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Services/FileSystemService.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Services/NativePanelService.swift
+/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/OAuthService.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Support/RetroStyle.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Views/AutomationsView.swift
+/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/ClosyncLogoView.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/RetroButton.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/StatusWidgets.swift
 /Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/TopNavigationBar.swift

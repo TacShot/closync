@@ -5,6 +5,8 @@ struct TopNavigationBar: View {
 
     var body: some View {
         HStack(spacing: 10) {
+            ClosyncLogoView()
+
             VStack(alignment: .leading, spacing: 4) {
                 Text("MR-01/MASS")
                     .font(RetroTypography.body(11))
