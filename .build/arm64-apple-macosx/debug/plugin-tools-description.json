@@ -1,0 +1,638 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.Closync-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/sources",
+      "importPath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/AppConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/ClosyncApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/AutomationRule.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/NavigationTab.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/ProviderConnection.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/RetroPalette.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Support/RetroStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/AutomationsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/RetroButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/StatusWidgets.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/TopNavigationBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ConnectionsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DataflowView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ManagementView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ProgressSidePanel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/SettingsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "Closync",
+      "moduleOutputPath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Modules/Closync.swiftmodule",
+      "objects" : [
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppConfig.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncApp.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationRule.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NavigationTab.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProviderConnection.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroPalette.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppModel.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroStyle.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationsView.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroButton.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/StatusWidgets.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/TopNavigationBar.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ConnectionsView.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ContentView.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DashboardView.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DataflowView.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ManagementView.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProgressSidePanel.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SettingsView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "Closync_main",
+        "-swift-version",
+        "6",
+        "-I",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-L",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "closync"
+      ],
+      "outputFileMapPath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationRule.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NavigationTab.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProviderConnection.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroPalette.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/StatusWidgets.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/TopNavigationBar.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ConnectionsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DataflowView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ManagementView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProgressSidePanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Modules/Closync.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/AppConfig.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/ClosyncApp.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/AutomationRule.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/NavigationTab.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/ProviderConnection.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/RetroPalette.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Support/RetroStyle.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/AutomationsView.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/RetroButton.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/StatusWidgets.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/TopNavigationBar.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ConnectionsView.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ContentView.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DashboardView.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DataflowView.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ManagementView.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ProgressSidePanel.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/SettingsView.swift"
+      ],
+      "tempsPath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "Closync" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "Closync",
+      "-package-name",
+      "closync",
+      "-c",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/AppConfig.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/ClosyncApp.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/AutomationRule.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/NavigationTab.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/ProviderConnection.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/RetroPalette.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Support/RetroStyle.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/AutomationsView.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/RetroButton.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/StatusWidgets.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/TopNavigationBar.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ConnectionsView.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ContentView.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DashboardView.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DataflowView.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ManagementView.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ProgressSidePanel.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/SettingsView.swift",
+      "-I",
+      "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "Closync_main",
+      "-swift-version",
+      "6",
+      "-I",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-L",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "closync",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "Closync" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync-entitlement.plist"
+    },
+    "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/AppConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/ClosyncApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/AutomationRule.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/NavigationTab.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/ProviderConnection.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/RetroPalette.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Support/RetroStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/AutomationsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/RetroButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/StatusWidgets.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/Components/TopNavigationBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ConnectionsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ContentView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DashboardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DataflowView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ManagementView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ProgressSidePanel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/SettingsView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/sources"
+    },
+    "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationRule.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ConnectionsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ContentView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DashboardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DataflowView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ManagementView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NavigationTab.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProgressSidePanel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProviderConnection.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroPalette.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SettingsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/StatusWidgets.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/TopNavigationBar.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.product/Objects.LinkFileList"
+    },
+    "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+    }
+  }
+}
