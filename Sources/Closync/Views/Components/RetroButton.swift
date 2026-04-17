@@ -10,9 +10,7 @@ struct RetroButton: View {
     @State private var pressing = false
 
     var body: some View {
-        Button(action: {
-            action()
-        }) {
+        Button(action: action) {
             Text("[\(title)]")
                 .font(RetroTypography.body(15))
                 .tracking(0.8)
@@ -20,15 +18,15 @@ struct RetroButton: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 10)
                 .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8)
                         .fill(isActive ? appModel.palette.frame : .black.opacity(0.18))
                 )
                 .overlay(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8)
                         .stroke(appModel.palette.frame.opacity(0.85), lineWidth: 1)
                 )
-                .shadow(color: hovering || pressing ? appModel.palette.glow : .clear, radius: 12)
-                .scaleEffect(pressing ? 0.97 : hovering ? 1.02 : 1.0)
+                .shadow(color: hoverGlowEnabled ? appModel.palette.glow : .clear, radius: 12)
+                .scaleEffect(appModel.hoverAnimationsEnabled ? (pressing ? 0.97 : hovering ? 1.02 : 1.0) : 1.0)
                 .animation(.spring(response: 0.2, dampingFraction: 0.7), value: pressing)
                 .animation(.easeOut(duration: 0.15), value: hovering)
         }
@@ -41,6 +39,10 @@ struct RetroButton: View {
         }, onRelease: {
             pressing = false
         })
+    }
+
+    private var hoverGlowEnabled: Bool {
+        appModel.hoverAnimationsEnabled && (hovering || pressing)
     }
 }
 
@@ -64,15 +66,15 @@ struct ToggleBlockButton: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             .background(
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 6)
                     .fill(isOn ? appModel.palette.frame : .black.opacity(0.18))
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 6)
                     .stroke(appModel.palette.frame.opacity(0.9), lineWidth: 1)
             )
-            .shadow(color: hovering ? appModel.palette.glow : .clear, radius: 10)
-            .offset(y: hovering ? -1 : 0)
+            .shadow(color: appModel.hoverAnimationsEnabled && hovering ? appModel.palette.glow : .clear, radius: 10)
+            .offset(y: appModel.hoverAnimationsEnabled && hovering ? -1 : 0)
         }
         .buttonStyle(.plain)
         .onHover { hovering in

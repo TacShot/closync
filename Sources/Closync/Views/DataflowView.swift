@@ -13,14 +13,12 @@ struct DataflowView: View {
                 Text("ROUTE MAP")
                     .font(RetroTypography.title(17))
 
-                Text("Drag nodes to redesign motion paths. Trigger actions simulate upload, cleanup, and provider sync while the wireframe graph animates traffic.")
+                Text("The graph now reflects live selections, current action state, and the chosen destination or remote browser path. Drag nodes to re-layout the panel.")
                     .font(RetroTypography.body(12))
                     .foregroundStyle(appModel.palette.secondaryText)
 
-                RetroButton(title: "PULSE", isActive: true) {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        appModel.advanceSimulation()
-                    }
+                RetroButton(title: "REFRESH", isActive: true) {
+                    appModel.refreshLocalRoots()
                 }
 
                 VStack(alignment: .leading, spacing: 10) {
@@ -28,7 +26,7 @@ struct DataflowView: View {
                         ProgressMeter(
                             title: edge.label,
                             progress: edge.traffic,
-                            detail: "LINK SIGNAL \(Int(edge.traffic * 100))%"
+                            detail: "\(Int(edge.traffic * 100))% route load"
                         )
                     }
                 }
@@ -36,7 +34,7 @@ struct DataflowView: View {
                 Spacer()
             }
             .frame(width: 280)
-            .retroPanel(palette: appModel.palette)
+            .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
         }
     }
 }
@@ -51,7 +49,7 @@ private struct FlowCanvasView: View {
                 let time = context.date.timeIntervalSinceReferenceDate
 
                 ZStack {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 18)
                         .fill(.black.opacity(0.17))
 
                     Canvas { context, size in
@@ -59,9 +57,7 @@ private struct FlowCanvasView: View {
                             guard
                                 let from = appModel.nodes.first(where: { $0.id == edge.from }),
                                 let to = appModel.nodes.first(where: { $0.id == edge.to })
-                            else {
-                                continue
-                            }
+                            else { continue }
 
                             let start = CGPoint(x: from.position.x * size.width, y: from.position.y * size.height)
                             let end = CGPoint(x: to.position.x * size.width, y: to.position.y * size.height)
@@ -74,13 +70,11 @@ private struct FlowCanvasView: View {
                                 control2: CGPoint(x: end.x - controlOffset, y: end.y)
                             )
 
-                            context.stroke(path, with: .color(appModel.palette.frame.opacity(0.35)), lineWidth: 1)
-
-                            let dashPhase = time * 90 * edge.traffic
+                            context.stroke(path, with: .color(appModel.palette.frame.opacity(0.28)), lineWidth: 1)
                             context.stroke(
                                 path,
                                 with: .color(appModel.palette.frame),
-                                style: StrokeStyle(lineWidth: 2.5, lineCap: .round, dash: [9, 8], dashPhase: dashPhase)
+                                style: StrokeStyle(lineWidth: 2.4, lineCap: .square, dash: [10, 7], dashPhase: time * 80)
                             )
                         }
                     }
@@ -93,7 +87,7 @@ private struct FlowCanvasView: View {
                 }
             }
         }
-        .retroPanel(palette: appModel.palette)
+        .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
     }
 }
 
@@ -112,17 +106,17 @@ private struct FlowNodeView: View {
             Text(node.subtitle.uppercased())
                 .font(RetroTypography.body(10))
                 .foregroundStyle(appModel.palette.secondaryText)
-            ProgressMeter(title: node.kind.rawValue, progress: node.progress, detail: "NODE CHARGE")
+            ProgressMeter(title: node.kind.rawValue, progress: node.progress, detail: "LIVE FIGURE")
         }
-        .frame(width: 180)
+        .frame(width: 190)
         .padding(10)
         .background(hovering ? appModel.palette.frame.opacity(0.12) : .black.opacity(0.16))
         .overlay(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
+            RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 12)
                 .stroke(appModel.palette.frame.opacity(0.92), lineWidth: 1)
         )
         .shadow(color: appModel.palette.glow.opacity(hovering ? 1 : 0.45), radius: hovering ? 16 : 10)
-        .scaleEffect(hovering ? 1.03 : 1)
+        .scaleEffect(appModel.hoverAnimationsEnabled && hovering ? 1.03 : 1)
         .offset(dragTranslation)
         .onHover { hovering in
             self.hovering = hovering
@@ -139,10 +133,7 @@ private struct FlowNodeView: View {
                     )
                     appModel.updateNodePosition(
                         id: node.id,
-                        normalizedPosition: CGPoint(
-                            x: newCenter.x / canvasSize.width,
-                            y: newCenter.y / canvasSize.height
-                        )
+                        normalizedPosition: CGPoint(x: newCenter.x / canvasSize.width, y: newCenter.y / canvasSize.height)
                     )
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.72)) {
                         dragTranslation = .zero

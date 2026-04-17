@@ -6,8 +6,8 @@ struct FooterBar: View {
     var body: some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("SYSTEM STATUS: NOMINAL // \(appModel.connections.filter { $0.health == .online }.count) LINKS ACTIVE")
-                Text("VERSION CLASS: \(AppConfig.version) // UI PROFILE: \(appModel.palette.name.uppercased())")
+                Text("STATUS: \(appModel.isBusy ? "BUSY" : "READY") // CONNECTED \(appModel.connectedProvidersCount)/\(appModel.connections.count)")
+                Text("VERSION: \(AppConfig.version) // THEME: \(appModel.palette.name.uppercased()) // \(appModel.sharpCornersEnabled ? "SHARP" : "ROUND")")
             }
             .font(RetroTypography.body(11))
             .foregroundStyle(appModel.palette.secondaryText)
@@ -22,10 +22,15 @@ struct FooterBar: View {
                 }
                 .frame(width: 120)
 
-                RetroButton(title: "SCAN", isActive: false) {
-                    appModel.advanceSimulation()
+                RetroButton(title: "SELECT", isActive: false) {
+                    appModel.chooseFilesAndFolders()
                 }
                 .frame(width: 110)
+
+                RetroButton(title: "BACKUP", isActive: true) {
+                    appModel.showingGitHubBackupSheet = true
+                }
+                .frame(width: 118)
 
                 SettingsLink {
                     Text("[MENU]")
@@ -36,11 +41,11 @@ struct FooterBar: View {
                 }
                 .buttonStyle(.plain)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 8)
                         .stroke(appModel.palette.frame.opacity(0.9), lineWidth: 1)
                 )
             }
         }
-        .retroPanel(palette: appModel.palette)
+        .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
     }
 }

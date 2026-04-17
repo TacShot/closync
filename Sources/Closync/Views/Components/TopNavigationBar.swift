@@ -23,10 +23,10 @@ struct TopNavigationBar: View {
                             appModel.selectedTab = tab
                         }
                     }
-                    .frame(width: 106)
+                    .frame(width: 94)
                 }
             }
         }
-        .retroPanel(palette: appModel.palette)
+        .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
     }
 }

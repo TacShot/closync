@@ -6,6 +6,7 @@ struct SettingsView: View {
     @AppStorage("scanlinesEnabled") private var scanlinesEnabled = true
     @AppStorage("progressPanelVisible") private var progressPanelVisible = true
     @AppStorage("hoverAnimationsEnabled") private var hoverAnimationsEnabled = true
+    @AppStorage("sharpCornersEnabled") private var sharpCornersEnabled = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
@@ -25,24 +26,25 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
 
-                    ToggleBlockButton(title: "Scanlines", isOn: $scanlinesEnabled)
+                    ToggleBlockButton(title: "CRT Scanlines", isOn: $scanlinesEnabled)
+                    ToggleBlockButton(title: "Sharp Corners", isOn: $sharpCornersEnabled)
                     ToggleBlockButton(title: "Progress Panel", isOn: $progressPanelVisible)
                     ToggleBlockButton(title: "Hover Motion", isOn: $hoverAnimationsEnabled)
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-                .retroPanel(palette: appModel.palette)
+                .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
 
                 VStack(alignment: .leading, spacing: 14) {
                     Text("BUILD / PACKAGE")
                         .font(RetroTypography.body(13))
                     Text("Version \(AppConfig.version)")
                     Text("Outputs: dist/Closync.app + dist/Closync-macos-\(AppConfig.version).zip")
-                    Text("Cloud providers are scaffolded as connection targets and workflow endpoints in this build.")
+                    Text("Cloud services use live REST API calls and native local/iCloud filesystem browsing in this build.")
                         .foregroundStyle(appModel.palette.secondaryText)
                 }
                 .font(RetroTypography.body(12))
                 .frame(maxWidth: .infinity, alignment: .topLeading)
-                .retroPanel(palette: appModel.palette)
+                .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
             }
 
             Spacer()
@@ -57,6 +59,12 @@ struct SettingsView: View {
         }
         .onChange(of: progressPanelVisible) { _, newValue in
             appModel.progressPanelVisible = newValue
+        }
+        .onChange(of: hoverAnimationsEnabled) { _, newValue in
+            appModel.hoverAnimationsEnabled = newValue
+        }
+        .onChange(of: sharpCornersEnabled) { _, newValue in
+            appModel.sharpCornersEnabled = newValue
         }
     }
 }

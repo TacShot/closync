@@ -7,6 +7,8 @@ struct ClosyncApp: App {
     @AppStorage("selectedPalette") private var selectedPaletteRawValue = RetroPalette.phosphorGreen.rawValue
     @AppStorage("scanlinesEnabled") private var scanlinesEnabled = true
     @AppStorage("progressPanelVisible") private var progressPanelVisible = true
+    @AppStorage("hoverAnimationsEnabled") private var hoverAnimationsEnabled = true
+    @AppStorage("sharpCornersEnabled") private var sharpCornersEnabled = false
 
     @State private var appModel = AppModel()
 
@@ -19,7 +21,9 @@ struct ClosyncApp: App {
                     appModel.configureInitialState(
                         palette: RetroPalette(rawValue: selectedPaletteRawValue) ?? .phosphorGreen,
                         scanlinesEnabled: scanlinesEnabled,
-                        progressPanelVisible: progressPanelVisible
+                        progressPanelVisible: progressPanelVisible,
+                        hoverAnimationsEnabled: hoverAnimationsEnabled,
+                        sharpCornersEnabled: sharpCornersEnabled
                     )
                 }
                 .onChange(of: selectedPaletteRawValue) { _, newValue in
@@ -31,22 +35,38 @@ struct ClosyncApp: App {
                 .onChange(of: progressPanelVisible) { _, newValue in
                     appModel.progressPanelVisible = newValue
                 }
+                .onChange(of: hoverAnimationsEnabled) { _, newValue in
+                    appModel.hoverAnimationsEnabled = newValue
+                }
+                .onChange(of: sharpCornersEnabled) { _, newValue in
+                    appModel.sharpCornersEnabled = newValue
+                }
                 .frame(minWidth: 1240, minHeight: 800)
         }
         .windowResizability(.contentSize)
         .commands {
             SidebarCommands()
             CommandMenu("Flow") {
-                Button("Run Active Workload") {
-                    appModel.advanceSimulation()
+                Button("Select Files or Folders") {
+                    appModel.chooseFilesAndFolders()
                 }
-                .keyboardShortcut("r")
+                .keyboardShortcut("o")
 
                 Button(appModel.progressPanelVisible ? "Hide Progress Panel" : "Show Progress Panel") {
                     appModel.progressPanelVisible.toggle()
                     progressPanelVisible = appModel.progressPanelVisible
                 }
                 .keyboardShortcut("p")
+
+                Button("Choose Destination") {
+                    appModel.chooseDestinationFolder()
+                }
+                .keyboardShortcut("d")
+
+                Button("Open GitHub Backup Dialog") {
+                    appModel.showingGitHubBackupSheet = true
+                }
+                .keyboardShortcut("b")
             }
         }
 

@@ -36,6 +36,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FileSelectionItem.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift"
         },
         {
@@ -53,6 +57,18 @@
         {
           "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/CloudService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/FileSystemService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/NativePanelService.swift"
         },
         {
           "kind" : "file",
@@ -96,7 +112,15 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FilesView.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/GitHubBackupSheet.swift"
         },
         {
           "kind" : "file",
@@ -126,11 +150,15 @@
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppConfig.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ClosyncApp.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationRule.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NavigationTab.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProviderConnection.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroPalette.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppModel.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/RetroStyle.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationsView.swift.o",
@@ -141,7 +169,9 @@
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ContentView.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DashboardView.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DataflowView.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.swift.o",
+        "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ManagementView.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ProgressSidePanel.swift.o",
         "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SettingsView.swift.o"
@@ -205,6 +235,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.swift.o"
         },
         {
@@ -222,6 +256,18 @@
         {
           "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.swift.o"
         },
         {
           "kind" : "file",
@@ -265,7 +311,15 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet.swift.o"
         },
         {
           "kind" : "file",
@@ -289,11 +343,15 @@
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/AppConfig.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/ClosyncApp.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/AutomationRule.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FileSelectionItem.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/NavigationTab.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/ProviderConnection.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/RetroPalette.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/CloudService.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/FileSystemService.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/NativePanelService.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Support/RetroStyle.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/AutomationsView.swift",
@@ -304,7 +362,9 @@
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ContentView.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DashboardView.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DataflowView.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FilesView.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift",
+        "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/GitHubBackupSheet.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ManagementView.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ProgressSidePanel.swift",
         "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/SettingsView.swift"
@@ -327,11 +387,15 @@
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/AppConfig.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/App/ClosyncApp.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/AutomationRule.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FileSelectionItem.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/NavigationTab.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/ProviderConnection.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/RetroPalette.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/CloudService.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/FileSystemService.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/NativePanelService.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Support/RetroStyle.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/AutomationsView.swift",
@@ -342,7 +406,9 @@
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ContentView.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DashboardView.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/DataflowView.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FilesView.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift",
+      "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/GitHubBackupSheet.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ManagementView.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ProgressSidePanel.swift",
       "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/SettingsView.swift",
@@ -445,6 +511,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FileSelectionItem.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift"
         },
         {
@@ -462,6 +532,18 @@
         {
           "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/SyncJob.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/CloudService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/FileSystemService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/NativePanelService.swift"
         },
         {
           "kind" : "file",
@@ -505,7 +587,15 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FilesView.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/GitHubBackupSheet.swift"
         },
         {
           "kind" : "file",
@@ -551,6 +641,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ConnectionsView.swift.o"
         },
         {
@@ -567,6 +661,18 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.swift.o"
         },
         {
@@ -575,7 +681,15 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ManagementView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.swift.o"
         },
         {
           "kind" : "file",

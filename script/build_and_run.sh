@@ -3,7 +3,7 @@ set -euo pipefail
 
 MODE="${1:-run}"
 APP_NAME="Closync"
-VERSION="0.1.0"
+VERSION="0.2.0"
 BUNDLE_ID="com.hysarthak.closync"
 MIN_SYSTEM_VERSION="14.0"
 

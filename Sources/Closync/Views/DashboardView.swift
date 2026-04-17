@@ -6,85 +6,68 @@ struct DashboardView: View {
     var body: some View {
         VStack(spacing: 16) {
             HStack(spacing: 16) {
-                MetricPanel(title: "Active Paths", value: "\(appModel.connections.count)", caption: "Providers and volumes linked")
-                MetricPanel(title: "Automation Rules", value: "\(appModel.automations.filter(\.enabled).count)", caption: "Enabled event pipelines")
-                MetricPanel(title: "Live Throughput", value: "586 MB/S", caption: "Aggregate transfer velocity")
-                MetricPanel(title: "Retention Save", value: "1.8 TB", caption: "Local data cleared after upload")
+                MetricPanel(title: "Connected Providers", value: "\(appModel.connectedProvidersCount)", caption: "Live authenticated endpoints")
+                MetricPanel(title: "Selected Roots", value: "\(appModel.selectedItems.count)", caption: "Files or folders in the working set")
+                MetricPanel(title: "Selected Data", value: ByteCountFormatter.string(fromByteCount: appModel.totalSelectedBytes, countStyle: .file), caption: "Actual bytes from selected items")
+                MetricPanel(title: "Completed Actions", value: "\(appModel.recentSuccessfulActions)", caption: "Successful file or connection operations")
             }
 
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("ACTIVE JOBS")
+                    Text("WORKSPACE STATUS")
                         .font(RetroTypography.title(17))
 
-                    ForEach(appModel.jobs) { job in
-                        ProgressMeter(title: job.name, progress: job.progress, detail: "\(job.direction) // \(job.throughput)")
-                    }
+                    ProgressMeter(title: "Selection Coverage", progress: min(1, Double(appModel.totalSelectedEntries) / 100), detail: "\(appModel.totalSelectedEntries) contained items")
+                    ProgressMeter(title: "Connection Coverage", progress: Double(appModel.connectedProvidersCount) / Double(max(appModel.connections.count, 1)), detail: "\(appModel.connectedProvidersCount) providers online")
+                    ProgressMeter(title: "Operation Progress", progress: appModel.currentProgress, detail: appModel.currentOperation)
 
                     HStack(spacing: 12) {
-                        RetroButton(title: "RUN FLOW", isActive: true) {
-                            appModel.advanceSimulation()
+                        RetroButton(title: "OPEN FILES", isActive: true) {
+                            appModel.selectedTab = .files
                         }
-                        RetroButton(title: "ARM BACKUP", isActive: false) {
-                            appModel.selectedTab = .automations
+                        RetroButton(title: "REFRESH NET", isActive: false) {
+                            Task { await appModel.refreshSelectedConnection() }
                         }
-                        RetroButton(title: "OPEN NET", isActive: false) {
-                            appModel.selectedTab = .connections
+                        RetroButton(title: "SET DEST", isActive: false) {
+                            appModel.chooseDestinationFolder()
                         }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .retroPanel(palette: appModel.palette)
+                .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
 
-                DashboardTelemetryPanel()
-                    .frame(width: 360)
+                DashboardActivityPanel()
+                    .frame(width: 380)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
 
-private struct DashboardTelemetryPanel: View {
+private struct DashboardActivityPanel: View {
     @Environment(AppModel.self) private var appModel
-    @State private var phase: CGFloat = .zero
 
     var body: some View {
-        TimelineView(.animation) { context in
-            let time = context.date.timeIntervalSinceReferenceDate
+        VStack(alignment: .leading, spacing: 14) {
+            Text("EVENT LOG")
+                .font(RetroTypography.title(17))
 
-            VStack(alignment: .leading, spacing: 14) {
-                Text("SIGNAL TRACE")
-                    .font(RetroTypography.title(17))
-
-                Canvas { context, size in
-                    var path = Path()
-                    for index in stride(from: 0.0, through: size.width, by: 4) {
-                        let normalized = index / size.width
-                        let y = size.height * 0.5 + sin(normalized * 18 + time * 3) * 26 + cos(normalized * 9 + time * 1.8) * 10
-                        if index == 0 {
-                            path.move(to: CGPoint(x: index, y: y))
-                        } else {
-                            path.addLine(to: CGPoint(x: index, y: y))
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(appModel.logs.prefix(8)) { entry in
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(entry.title.uppercased())
+                                .font(RetroTypography.body(11))
+                            Text(entry.detail)
+                                .font(RetroTypography.body(10))
+                                .foregroundStyle(appModel.palette.secondaryText)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 6)
                     }
-                    context.stroke(path, with: .color(appModel.palette.frame), lineWidth: 2)
                 }
-                .frame(height: 140)
-                .background(.black.opacity(0.2))
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("LATEST EVENTS")
-                        .font(RetroTypography.body(12))
-                    Text("16:57 checksum lane realigned")
-                    Text("16:58 drive target warmed")
-                    Text("16:58 staged purge verified")
-                    Text("16:59 iCloud delta indexed")
-                }
-                .font(RetroTypography.body(11))
-                .foregroundStyle(appModel.palette.secondaryText)
             }
-            .retroPanel(palette: appModel.palette)
         }
+        .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
     }
 }

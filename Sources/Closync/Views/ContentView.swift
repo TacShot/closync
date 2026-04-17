@@ -25,6 +25,14 @@ struct ContentView: View {
             .padding(20)
             .foregroundStyle(appModel.palette.frame)
         }
+        .sheet(isPresented: Binding(
+            get: { appModel.showingGitHubBackupSheet },
+            set: { appModel.showingGitHubBackupSheet = $0 }
+        )) {
+            GitHubBackupSheet()
+                .environment(appModel)
+                .preferredColorScheme(.dark)
+        }
     }
 
     @ViewBuilder
@@ -32,6 +40,8 @@ struct ContentView: View {
         switch appModel.selectedTab {
         case .dashboard:
             DashboardView()
+        case .files:
+            FilesView()
         case .management:
             ManagementView()
         case .dataflow:

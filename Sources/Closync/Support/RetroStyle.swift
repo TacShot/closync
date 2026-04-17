@@ -10,8 +10,26 @@ struct RetroTypography {
     }
 }
 
+struct RetroShape: InsettableShape {
+    var sharpCorners: Bool
+    var radius: CGFloat = 14
+    var insetAmount: CGFloat = 0
+
+    func path(in rect: CGRect) -> Path {
+        let adjusted = rect.insetBy(dx: insetAmount, dy: insetAmount)
+        return RoundedRectangle(cornerRadius: sharpCorners ? 0 : radius, style: .continuous).path(in: adjusted)
+    }
+
+    func inset(by amount: CGFloat) -> some InsettableShape {
+        var shape = self
+        shape.insetAmount += amount
+        return shape
+    }
+}
+
 struct RetroPanelModifier: ViewModifier {
     let palette: RetroPalette
+    let sharpCorners: Bool
     var innerGlow: Bool = true
 
     func body(content: Content) -> some View {
@@ -19,16 +37,16 @@ struct RetroPanelModifier: ViewModifier {
             .padding(14)
             .background(
                 ZStack {
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    RetroShape(sharpCorners: sharpCorners, radius: 14)
                         .fill(.black.opacity(0.28))
 
                     if innerGlow {
-                        RoundedRectangle(cornerRadius: 14, style: .continuous)
-                            .stroke(palette.glow, lineWidth: 1.3)
-                            .blur(radius: 8)
+                        RetroShape(sharpCorners: sharpCorners, radius: 14)
+                            .stroke(palette.glow, lineWidth: 1.4)
+                            .blur(radius: 10)
                     }
 
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    RetroShape(sharpCorners: sharpCorners, radius: 14)
                         .stroke(palette.frame.opacity(0.88), lineWidth: 1.1)
                 }
             )
@@ -37,8 +55,8 @@ struct RetroPanelModifier: ViewModifier {
 }
 
 extension View {
-    func retroPanel(palette: RetroPalette, innerGlow: Bool = true) -> some View {
-        modifier(RetroPanelModifier(palette: palette, innerGlow: innerGlow))
+    func retroPanel(palette: RetroPalette, sharpCorners: Bool, innerGlow: Bool = true) -> some View {
+        modifier(RetroPanelModifier(palette: palette, sharpCorners: sharpCorners, innerGlow: innerGlow))
     }
 }
 
@@ -46,25 +64,34 @@ struct ScanlineOverlay: View {
     let palette: RetroPalette
 
     var body: some View {
-        GeometryReader { proxy in
-            let rows = max(Int(proxy.size.height / 4), 1)
-            Canvas { context, size in
-                for row in 0 ..< rows {
-                    let y = CGFloat(row) * 4
-                    let rect = CGRect(x: 0, y: y, width: size.width, height: 1)
-                    context.fill(Path(rect), with: .color(.black.opacity(0.30)))
+        TimelineView(.animation(minimumInterval: 1 / 30)) { context in
+            let time = context.date.timeIntervalSinceReferenceDate
+
+            GeometryReader { proxy in
+                let rows = max(Int(proxy.size.height / 3), 1)
+                Canvas { context, size in
+                    for row in 0 ..< rows {
+                        let y = CGFloat(row) * 3
+                        let alpha = row.isMultiple(of: 2) ? 0.26 : 0.14
+                        let rect = CGRect(x: 0, y: y, width: size.width, height: 1.2)
+                        context.fill(Path(rect), with: .color(.black.opacity(alpha)))
+                    }
+
+                    let sweepY = (CGFloat(time.truncatingRemainder(dividingBy: 3)) / 3) * size.height
+                    let glowRect = CGRect(x: 0, y: sweepY, width: size.width, height: 36)
+                    context.fill(Path(glowRect), with: .linearGradient(
+                        Gradient(colors: [.clear, palette.glow.opacity(0.28), .clear]),
+                        startPoint: CGPoint(x: 0, y: glowRect.minY),
+                        endPoint: CGPoint(x: 0, y: glowRect.maxY)
+                    ))
                 }
-            }
-            .overlay {
-                LinearGradient(
-                    colors: [
-                        palette.glow.opacity(0.10),
-                        .clear,
-                        .black.opacity(0.2)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+                .overlay {
+                    LinearGradient(
+                        colors: [.black.opacity(0.28), .clear, .black.opacity(0.25)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                }
             }
         }
         .allowsHitTesting(false)
@@ -85,7 +112,7 @@ struct RetroGridBackground: View {
             )
 
             Canvas { context, size in
-                let step: CGFloat = 36
+                let step: CGFloat = 34
                 var path = Path()
 
                 stride(from: CGFloat.zero, through: size.width, by: step).forEach { x in
@@ -102,11 +129,18 @@ struct RetroGridBackground: View {
             }
 
             RadialGradient(
-                colors: [palette.glow.opacity(0.18), .clear],
+                colors: [palette.glow.opacity(0.22), .clear],
                 center: .center,
                 startRadius: 10,
-                endRadius: 900
+                endRadius: 1100
             )
+
+            Rectangle()
+                .fill(
+                    LinearGradient(colors: [.black.opacity(0.28), .clear, .black.opacity(0.22)], startPoint: .top, endPoint: .bottom)
+                )
+                .blur(radius: 70)
+                .blendMode(.multiply)
 
             if scanlinesEnabled {
                 ScanlineOverlay(palette: palette)

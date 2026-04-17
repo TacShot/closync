@@ -2,6 +2,7 @@ import Foundation
 
 enum NavigationTab: String, CaseIterable, Identifiable {
     case dashboard
+    case files
     case management
     case dataflow
     case connections
@@ -13,6 +14,7 @@ enum NavigationTab: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .dashboard: "STAT"
+        case .files: "FILE"
         case .management: "CORE"
         case .dataflow: "LINK"
         case .connections: "NET"
@@ -24,6 +26,7 @@ enum NavigationTab: String, CaseIterable, Identifiable {
     var subtitle: String {
         switch self {
         case .dashboard: "Dashboard"
+        case .files: "Files"
         case .management: "Management"
         case .dataflow: "Dataflow"
         case .connections: "Connections"

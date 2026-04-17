@@ -22,7 +22,7 @@ struct MetricPanel: View {
                 .foregroundStyle(appModel.palette.secondaryText)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .retroPanel(palette: appModel.palette)
+        .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
     }
 }
 
@@ -45,10 +45,10 @@ struct ProgressMeter: View {
 
             GeometryReader { proxy in
                 ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 4)
                         .fill(.black.opacity(0.25))
 
-                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 4)
                         .fill(appModel.palette.frame)
                         .frame(width: proxy.size.width * progress)
                         .shadow(color: appModel.palette.glow, radius: 8)

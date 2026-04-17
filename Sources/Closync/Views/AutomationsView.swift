@@ -20,10 +20,7 @@ struct AutomationsView: View {
                                     .foregroundStyle(appModel.palette.secondaryText)
                             }
                             Spacer()
-                            ToggleBlockButton(
-                                title: appModel.automations[index].enabled ? "ARMED" : "OFFLINE",
-                                isOn: binding(for: index)
-                            )
+                            ToggleBlockButton(title: appModel.automations[index].enabled ? "ARMED" : "OFFLINE", isOn: binding(for: index))
                         }
 
                         Text(appModel.automations[index].behavior.uppercased())
@@ -32,27 +29,30 @@ struct AutomationsView: View {
                     }
                     .padding(12)
                     .background(.black.opacity(0.16))
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .overlay(
+                        RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 12)
+                            .stroke(appModel.palette.frame.opacity(0.8), lineWidth: 1)
+                    )
                 }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .retroPanel(palette: appModel.palette)
+            .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
 
             VStack(alignment: .leading, spacing: 12) {
-                Text("CHAIN OUTPUT")
+                Text("BACKUP CADENCE")
                     .font(RetroTypography.title(17))
-                Text("Folder changed -> Verify file set -> Upload to Google Drive -> Mirror metadata to private GitHub -> Delete local cache on checksum match")
+                Text("GitHub branch interval: every \(appModel.githubBackupDraft.timeframeValue) \(appModel.githubBackupDraft.timeframeUnit.rawValue)")
                     .font(RetroTypography.body(12))
                     .foregroundStyle(appModel.palette.secondaryText)
 
-                RetroButton(title: "SIMULATE", isActive: true) {
-                    appModel.advanceSimulation()
+                RetroButton(title: "OPEN BACKUP DIALOG", isActive: true) {
+                    appModel.showingGitHubBackupSheet = true
                 }
 
                 Spacer()
             }
-            .frame(width: 300, alignment: .topLeading)
-            .retroPanel(palette: appModel.palette)
+            .frame(width: 320, alignment: .topLeading)
+            .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
         }
     }
 

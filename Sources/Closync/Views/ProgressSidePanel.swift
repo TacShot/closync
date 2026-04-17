@@ -5,42 +5,36 @@ struct ProgressSidePanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("LIVE TRANSFER HUD")
+            Text("LIVE OPS")
                 .font(RetroTypography.title(18))
 
-            ForEach(appModel.jobs) { job in
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(job.name.uppercased())
-                                .font(RetroTypography.body(13))
-                            Text(job.direction.uppercased())
-                                .font(RetroTypography.body(11))
-                                .foregroundStyle(appModel.palette.secondaryText)
-                        }
-                        Spacer()
-                        Text(job.state)
-                            .font(RetroTypography.body(11))
-                    }
+            ProgressMeter(title: appModel.currentOperation, progress: appModel.currentProgress, detail: appModel.statusMessage)
 
-                    ProgressMeter(title: "Progress", progress: job.progress, detail: "\(job.throughput) // ETA \(job.eta)")
+            VStack(alignment: .leading, spacing: 10) {
+                Text("RECENT OPERATIONS")
+                    .font(RetroTypography.body(12))
+
+                if appModel.recentOperations.isEmpty {
+                    Text("No file actions executed yet.")
+                        .font(RetroTypography.body(11))
+                        .foregroundStyle(appModel.palette.secondaryText)
+                } else {
+                    ForEach(appModel.recentOperations) { operation in
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(operation.name)
+                                .font(RetroTypography.body(12))
+                            Text(operation.detail)
+                                .font(RetroTypography.body(10))
+                                .foregroundStyle(appModel.palette.secondaryText)
+                            ProgressMeter(title: operation.state, progress: operation.progress, detail: operation.detail)
+                        }
+                    }
                 }
-                .padding(10)
-                .background(.black.opacity(0.14))
-                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             }
 
             Spacer()
-
-            VStack(alignment: .leading, spacing: 6) {
-                Text("ROUTE SIGNAL")
-                    .font(RetroTypography.body(12))
-                Text("Queue depth stable // checksum verified // adaptive pruning armed")
-                    .font(RetroTypography.body(11))
-                    .foregroundStyle(appModel.palette.secondaryText)
-            }
         }
         .frame(maxHeight: .infinity, alignment: .top)
-        .retroPanel(palette: appModel.palette)
+        .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
     }
 }

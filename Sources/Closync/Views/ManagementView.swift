@@ -2,97 +2,84 @@ import SwiftUI
 
 struct ManagementView: View {
     @Environment(AppModel.self) private var appModel
-    @State private var selection = 0
 
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
             VStack(alignment: .leading, spacing: 14) {
-                Text("FLOW MODES")
+                Text("ACTION MODES")
                     .font(RetroTypography.title(17))
 
-                ForEach(Array(appModel.jobs.enumerated()), id: \.offset) { index, job in
-                    Button {
-                        withAnimation(.spring(response: 0.28, dampingFraction: 0.8)) {
-                            selection = index
-                        }
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(job.name.uppercased())
-                                Text(job.direction.uppercased())
-                                    .font(RetroTypography.body(11))
-                                    .foregroundStyle(appModel.palette.secondaryText)
-                            }
-                            Spacer()
-                            Text(job.state)
-                                .font(RetroTypography.body(11))
-                        }
-                        .font(RetroTypography.body(13))
-                        .padding(12)
-                        .background(selection == index ? appModel.palette.frame.opacity(0.18) : .black.opacity(0.18))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .stroke(appModel.palette.frame.opacity(selection == index ? 1 : 0.5), lineWidth: 1)
-                        )
-                        .scaleEffect(selection == index ? 1.01 : 1)
-                    }
-                    .buttonStyle(.plain)
+                ActionCard(title: "COPY", detail: "Duplicate selected files into a chosen destination folder.") {
+                    Task { await appModel.performLocalAction(.copy) }
+                }
+                ActionCard(title: "MOVE", detail: "Move selected items into the chosen destination folder.") {
+                    Task { await appModel.performLocalAction(.move) }
+                }
+                ActionCard(title: "DELETE", detail: "Send selected items to Trash.") {
+                    Task { await appModel.performLocalAction(.delete) }
+                }
+                ActionCard(title: "BACKUP", detail: "Open the GitHub repository backup dialog.") {
+                    appModel.showingGitHubBackupSheet = true
                 }
             }
-            .frame(width: 320)
-            .retroPanel(palette: appModel.palette)
+            .frame(width: 340)
+            .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
 
             VStack(alignment: .leading, spacing: 16) {
-                Text("WORKLOAD PROFILE")
+                Text("CURRENT TARGET")
                     .font(RetroTypography.title(17))
 
-                MetricPanel(title: "Selected Route", value: appModel.jobs[selection].state, caption: appModel.jobs[selection].name)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Destination")
+                    Text(appModel.destinationFolderURL?.path ?? "No destination selected")
+                        .foregroundStyle(appModel.palette.secondaryText)
+                    Text("Selected connection")
+                    Text(appModel.selectedConnection?.displayName ?? "None")
+                        .foregroundStyle(appModel.palette.secondaryText)
+                }
+                .font(RetroTypography.body(12))
 
                 HStack(spacing: 12) {
-                    DraggableChip(title: "SYNC")
-                    DraggableChip(title: "MOVE")
-                    DraggableChip(title: "DELETE")
-                    DraggableChip(title: "BACKUP")
+                    RetroButton(title: "SELECT FILES", isActive: true) {
+                        appModel.selectedTab = .files
+                    }
+                    RetroButton(title: "CHOOSE DEST", isActive: false) {
+                        appModel.chooseDestinationFolder()
+                    }
                 }
-
-                Text("Drag a mode block as a seed for future flow authoring. The dataflow pane uses these same operation families for node routing.")
-                    .font(RetroTypography.body(12))
-                    .foregroundStyle(appModel.palette.secondaryText)
 
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .retroPanel(palette: appModel.palette)
+            .retroPanel(palette: appModel.palette, sharpCorners: appModel.sharpCornersEnabled)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
 
-private struct DraggableChip: View {
+private struct ActionCard: View {
     let title: String
+    let detail: String
+    let action: () -> Void
+
     @Environment(AppModel.self) private var appModel
-    @State private var dragOffset: CGSize = .zero
 
     var body: some View {
-        Text(title)
-            .font(RetroTypography.body(14))
-            .foregroundStyle(.black)
-            .padding(.horizontal, 18)
-            .padding(.vertical, 10)
-            .background(appModel.palette.frame)
-            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .shadow(color: appModel.palette.glow, radius: 10)
-            .offset(dragOffset)
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        dragOffset = value.translation
-                    }
-                    .onEnded { _ in
-                        withAnimation(.spring(response: 0.35, dampingFraction: 0.68)) {
-                            dragOffset = .zero
-                        }
-                    }
-            )
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(RetroTypography.body(14))
+            Text(detail)
+                .font(RetroTypography.body(11))
+                .foregroundStyle(appModel.palette.secondaryText)
+            RetroButton(title: title, isActive: title == "BACKUP", action: action)
+                .frame(width: 160)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
+        .background(.black.opacity(0.16))
+        .overlay(
+            RetroShape(sharpCorners: appModel.sharpCornersEnabled, radius: 10)
+                .stroke(appModel.palette.frame.opacity(0.78), lineWidth: 1)
+        )
     }
 }

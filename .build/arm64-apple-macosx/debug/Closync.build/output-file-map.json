@@ -23,6 +23,13 @@
     "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationRule.swiftdeps",
     "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AutomationRule.dia"
   },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FileSelectionItem.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSelectionItem.dia"
+  },
   "/Users/hysarthak/Documents/code/closync/Sources/Closync/Models/FlowGraph.swift": {
     "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.d",
     "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FlowGraph.swift.o",
@@ -57,6 +64,27 @@
     "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob~partial.swiftmodule",
     "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob.swiftdeps",
     "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/SyncJob.dia"
+  },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/CloudService.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/CloudService.dia"
+  },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/FileSystemService.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FileSystemService.dia"
+  },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Services/NativePanelService.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/NativePanelService.dia"
   },
   "/Users/hysarthak/Documents/code/closync/Sources/Closync/Stores/AppModel.swift": {
     "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/AppModel.d",
@@ -128,12 +156,26 @@
     "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DataflowView.swiftdeps",
     "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/DataflowView.dia"
   },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FilesView.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FilesView.dia"
+  },
   "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/FooterBar.swift": {
     "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.d",
     "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.swift.o",
     "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar~partial.swiftmodule",
     "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.swiftdeps",
     "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/FooterBar.dia"
+  },
+  "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/GitHubBackupSheet.swift": {
+    "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet.d",
+    "object": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet.swift.o",
+    "swiftmodule": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet~partial.swiftmodule",
+    "swift-dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet.swiftdeps",
+    "diagnostics": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/GitHubBackupSheet.dia"
   },
   "/Users/hysarthak/Documents/code/closync/Sources/Closync/Views/ManagementView.swift": {
     "dependencies": "/Users/hysarthak/Documents/code/closync/.build/arm64-apple-macosx/debug/Closync.build/ManagementView.d",
